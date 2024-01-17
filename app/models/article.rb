@@ -15,6 +15,8 @@ class Article < ApplicationRecord
     return article
   end
 
-  # TODO: Search for articles by Title or Content.
-  def self.search(term) end
+  # Search for articles by Title or Content.
+  def self.search(term)
+    Article.where('title LIKE ? OR content LIKE ?', "%#{term}%", "%#{term}%")
+  end
 end
