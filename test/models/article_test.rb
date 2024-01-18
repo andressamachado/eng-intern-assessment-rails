@@ -14,6 +14,27 @@ class ArticleTest < ActiveSupport::TestCase
     assert article.valid?
   end
 
+  test 'ensures article has title and content' do
+    article = Article.create(title: '', content: '')
+    assert article.invalid?
+  end
+
+  test 'ensures article content is unique' do
+    article = Article.create(title: 'The first article', content: 'With great libraries comes great responsibilities.')
+    article_invalid = Article.create(title: 'The second article',
+                                     content: 'With great libraries comes great responsibilities.')
+    assert article.valid?
+    assert article_invalid.invalid?
+  end
+
+  test 'ensures article has unique title per author' do
+    article = Article.create(title: 'Watchmen', content: 'Who watches the watchmen?', author: 'Alan Moore')
+    article_invalid = Article.create(title: 'Watchmen', content: 'Will anyone notice?', author: 'Alan Moore')
+    assert article.valid?
+    assert article_invalid.invalid?
+    assert_equal 'must be unique per author', article_invalid.errors.messages[:title].first
+  end
+
   test 'displays the article content accurately' do
     article = Article.create(title: 'Sample Article', content: 'Lorem ipsum dolor sit amet.')
     assert_equal 'Lorem ipsum dolor sit amet.', article.content
