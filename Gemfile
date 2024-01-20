@@ -47,6 +47,8 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
+  # Ruby testing tool. [https://rspec.info/features/6-0/rspec-rails/]
+  gem 'rspec-rails', '~> 6.1.0'
 end
 
 group :development do
@@ -65,4 +67,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  # Brings back assigns to your controller tests as well as assert_template to both controller and integration tests.
+  # [https://github.com/rails/rails-controller-testing]
+  gem 'rails-controller-testing'
 end
