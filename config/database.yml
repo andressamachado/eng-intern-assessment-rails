@@ -21,5 +21,8 @@ test:
   database: storage/test.sqlite3
 
 production:
-  <<: *default
-  database: storage/production.sqlite3
+  adapter: postgresql
+  database: database_production_articles
+  pool: 5
+  timeout: 5000
+
