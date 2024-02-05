@@ -2,14 +2,17 @@
 
 Rails.application.routes.draw do
   get "comments/create"
+
   # Defines the root path route ("/")
-  # TODO: Landing page with link to article list page
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :articles do
     resources :comments, only: [:edit, :create, :destroy, :update]
   end
+
+  get "sign_up", to: "registrations#new"
+  post "sign_up", to: "registrations#create"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
