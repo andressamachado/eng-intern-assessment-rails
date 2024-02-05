@@ -1,8 +1,4 @@
 # Controller to display a landing page with link to articles list page
 class HomeController < ApplicationController
-  def index
-    if session[:user_id]
-      @user = User.find_by(id: session[:user_id])
-    end
-  end
+  def index; end
 end
