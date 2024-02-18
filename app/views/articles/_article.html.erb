@@ -1,23 +1,11 @@
 <div id="<%= dom_id article %>" class="p-5 mb-4 bg-body-tertiary rounded-3">
   <div class="container-fluid py-5">
-    <h1 class="fs-1 fw-light">
-      <%= article.title %>
-    </h1>
+    <h1 class="fs-1"> <%= article.title %> </h1>
 
-    <p class="fw-lighter fs-5">
-      <%= article.author %>
-    </p>
+    <span class="fw-lighter fs-6"> Published by </span>
+    <span class="fw-lighter fst-italic fs-6"> <%= article.author %> </span>
+    <span class="fw-lighter fs-6"> on: <%= article.date %> </span>
 
-
-    <p class="col-md-8 fs-5">
-      <%= article.content %>
-    </p>
-
-
-    <p class="fw-lighter fst-italic fs-6">
-      published on:
-      <%= article.date %>
-    </p>
-
+    <p class="col-md-8 fs-4 mt-3 fw-light"> <%= article.content %> </p>
   </div>
 </div>
