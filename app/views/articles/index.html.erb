@@ -1,5 +1,7 @@
+<% # View for showing all articles in the database %>
 <h1>Articles</h1>
 
+<% # Articles list table %>
 <div id="articles">
   <table class="table table-hover">
     <thead class="table">
@@ -7,8 +9,12 @@
         <th class="pt-4 pb-1">Article title</th>
         <th class="pt-4 pb-1">Author</th>
         <th class="pt-4 pb-1">Content</th>
-        <th class="pt-4 pb-1">Last updated</th> 
-        <th class="pt-4 pb-1" colspan="3">Actions</th>
+        <th class="pt-4 pb-1">Last updated</th>
+        <% if Current.user.nil? %>
+          <th class="pt-4 pb-1">Action</th>
+        <% else %>
+          <th class="pt-4 pb-1 colspan=3">Actions</th>
+        <% end %>
       </tr>
     </thead>
 
@@ -18,16 +24,29 @@
           <td class="pt-3"><%= article.title %></td>
           <td class="pt-3"><%= article.author %></td>
           <td class="pt-3"><%= article.content %></td>
-          <td class="pt-3"><%= article.updated_at.strftime("%d.%b.%Y at %H:%M%p") %></td>
-          <td class="pt-3"><%= link_to 'Show', article_path(article), class:"text-decoration-none"%></td>
-          <td class="pt-3"><%= link_to 'Edit', edit_article_path(article), class:"text-decoration-none"%></td>
-          <td class="pt-3"><%= link_to 'Destroy', article_path(article), class:"text-decoration-none link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover",
-                          method: :delete,
-                          data: { confirm: 'Are you sure?' } %></td>
+          <td class="pt-3"><%= article.updated_at.strftime("%d.%b.%Y") %></td>
+          <% # No user logged in - Dont show Edit and Destroy actions for every article %>
+          <% if Current.user.nil? %>
+            <td class="pt-3"><%= link_to 'Show', article_path(article), class:"text-decoration-none"%></td>
+          <% # user logged but not the author of particular article - Dont show Edit and Destroy actions for these articles %>
+          <% elsif Current.user.username != article.author %>
+            <td class="pt-3"><%= link_to 'Show', article_path(article), class:"text-decoration-none"%></td>
+            <td class="pt-3"> - </td>
+            <td class="pt-3"> - </td>
+          <% # User logged in and the author of particular article - Show all actions for these articles %>
+          <% else %>
+            <td class="pt-3"><%= link_to 'Show', article_path(article), class:"text-decoration-none"%></td>
+            <td class="pt-3"><%= link_to 'Edit', edit_article_path(article), class:"text-decoration-none"%></td>
+            <td class="pt-3"><%= link_to 'Destroy', article_path(article), class:"text-decoration-none link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover",
+              method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 
-<%= link_to "New article", new_article_path, class:"btn btn-success d-flex justify-content-center mt-5" %> 
+
+<% # New article btn %>
+<%= link_to "New article", new_article_path, class:"btn btn-success d-flex justify-content-center mt-5" %>
