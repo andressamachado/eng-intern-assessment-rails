@@ -1,20 +1,23 @@
 <%= render @article %>
 
-<div class="d-flex justify-content-between">
-  <%= button_to "Edit this article", edit_article_path(@article), method: :get, class:"btn btn-success"%>
-  <div class="d-flex justify-content-between">
+<div id="action_btns" class="d-flex justify-content-between">
+  <% if Current.user.nil? || Current.user.username != @article.author%>
     <%= link_to "Back to articles", articles_path, method: :get, class:"text-decoration-none d-flex align-items-center link-secondary ms-4"%>
-    <%= button_to "Destroy this article", @article, method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}}  , class:"btn btn-danger" %>
-  </div>
+  <% else %>
+    <%= button_to "Edit this article", edit_article_path(@article), method: :get, class:"btn btn-success"%>
+    <div class="d-flex justify-content-between">
+      <%= link_to "Back to articles", articles_path, method: :get, class:"text-decoration-none d-flex align-items-center link-secondary ms-4"%>
+      <%= button_to "Destroy this article", @article, method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}}  , class:"btn btn-danger" %>
+    </div>
+  <% end %>
 </div>
 
-
-<div id="comment_pane" class="d-flex flex-column mt-5 gap-1">
+<div id="comment_pane" class="d-flex flex-column my-5 gap-1">
   <h3 class="d-inline"> Join the conversation </h3>
 
-  <%= render "comments/form", article: @article, comment: @comment %>  
+  <%= render "comments/form", article: @article, comment: @comment %>
 
-  <div class="d-flex justify-content-between align-item-bottom mt-5"> 
+  <div class="d-flex justify-content-between align-item-bottom mt-5">
     <h5>Comments</h5>
     <span class="d-inline fw-light">( <%= pluralize(@comments.count, "comment") %> )</span>
   </div>
@@ -23,5 +26,3 @@
     <%= render 'comments/comment', comment: comment%>
   <%end%>
 </div>
-
-
