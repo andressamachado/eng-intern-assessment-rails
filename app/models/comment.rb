@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# Comment model
 class Comment < ApplicationRecord
   belongs_to :article
-  validates :username, presence: true, allow_blank: false
-  validates :body, presence: true, allow_blank: false
+
+  # Ensures the presence of Username and Body fields.
+  validates :username, :body, presence: true
 
   class << self
     # Create a new Comment instance.
