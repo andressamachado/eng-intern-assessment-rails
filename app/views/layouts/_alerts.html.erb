@@ -1,11 +1,5 @@
+<% # Partial for flash messages - feedback for user`s actions %>
 <div class="alert alert-warning" role="alert">
   <%= notice %>
-
   <%= link_to "Back to articles", articles_path, class:"alert-link" unless current_page?(articles_path)%>
-
-  <% if @user %>
-    <br/> <br/>
-    <p class="fw-lighter"> logged in as <%= @user.email %> </p>
-  <% end %>
-
 </div>
