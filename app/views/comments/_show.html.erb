@@ -1,22 +1,24 @@
+<% # Comment Pane. %>
+<% # This partial calls to render the comment form and is used to display the comments of an Article %>
 <div id="comment_pane" class="d-flex flex-column my-5 gap-1">
   <h3 class="d-inline"> Join the conversation </h3>
 
+  <% # Render form to add a comment if the user is logged in or show message for user to signin/signup %>
   <% unless Current.user %>
-    <p>You need to be logged in order to add a comment.</p>
+    <p> You need to be logged in order to add a comment. </p>
 
     <span>
-      <%= link_to "Sign in", sign_in_path, class:"link-warning fs-6" %>
-      if you already have an account or
-      <%= link_to "Sign up", sign_up_path, class:"link-warning fs-6" %>
-      to create an account.
+      <%= link_to "Sign in", sign_in_path, class:"link-warning fs-6" %> if you already have an account or
+      <%= link_to "Sign up", sign_up_path, class:"link-warning fs-6" %> to create an account.
     </span>
   <% else %>
-    <%= render "comments/form"%>
+    <%= render "comments/form" %>
   <% end %>
 
+  <% # Render comments from the database for an Article %>
   <div class="d-flex justify-content-between align-item-bottom mt-5">
     <h5>Comments</h5>
-    <span class="d-inline fw-light">( <%= pluralize(@comments.count, "comment") %> )</span>
+    <span class="d-inline fw-light">( <%= pluralize(@comments.count, "comment") %> ) </span>
   </div>
 
   <% @comments.each do |comment| %>

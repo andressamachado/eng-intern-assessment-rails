@@ -1,9 +1,9 @@
-  <%= form_with(model: [@article, @comment]) do |form| %>
-    <label for="username" class="form-label">Username</label>
-    <%= form.text_field :username, class:"form-control", id:"username" %>
-    <label for="comment-area" class="form-label">Comment</label>
-    <%= form.text_area :body, class:"form-control", id:"comment-area"%>
-    
+<% # This partial form is used to create and update comments %>
+<%= form_with model: [ @article, @comment ] do |form| %>
+  <%= form.label :username %>
+  <%= form.text_field :username, id:"username", class:"form-control my-2", value:Current.user.username, disabled:true %>
 
-    <%= form.submit (action_name === "edit" ? "Update" : "Comment"), class:"d-flex mt-3 flex-fill" %>
-  <% end %>
+  <% form.label :body %> Comment
+  <%= form.text_area :body, class:"form-control mt-2", required: true %>
+  <%= form.submit (action_name === "edit" ? "Update" : "Comment"), class:"d-flex mt-3 flex-fill" %>
+<% end %>
