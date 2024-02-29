@@ -1,5 +1,7 @@
+<% # Show single article page %>
 <%= render @article %>
 
+<% # Actions, requests, allowed for the article %>
 <div id="action_btns" class="d-flex justify-content-between">
   <% if Current.user.nil? || Current.user.username != @article.author%>
     <%= link_to "Back to articles", articles_path, method: :get, class:"text-decoration-none d-flex align-items-center link-secondary ms-4"%>
@@ -12,4 +14,5 @@
   <% end %>
 </div>
 
+<% # Show comments for the article %>
 <%= render "comments/show", article: @article %>
