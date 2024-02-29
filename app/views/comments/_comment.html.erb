@@ -1,12 +1,19 @@
-<div id="comment-<%= comment.id %>" class="mt-3 pe-3 border-end  border-3">
-  <div class="d-flex justify-content-between fw-lighter">
-    <p  class="fw-bold mb-1"><%= comment.username %>:</p>
-    <div>
-      <%= comment.created_at.strftime("%I:%M %p")%>
-      <%= link_to image_tag("delete-icon.png"), article_comment_path(@article, comment), remote: true,  form: {data: {turbo_confirm: 'Are you sure?'}}, data: {"turbo-method": :delete}, id:"delete-icon"%>
-      <%= link_to image_tag("edit.png"), edit_article_comment_path(@article, comment), remote: true, id:"edit-icon"%>
-    </div>
+<% # This partial is used to render a single comment %>
+<div id="comment-<%= comment.id %>" class="mt-3 pe-3 border-end border-3">
+  <div class="d-flex justify-content-between">
+    <p class="fw-bold"> <%= comment.username %>:</p>
+    <p class="fw-lighter"> <%= comment.created_at.strftime("%I:%M %p")%> </p>
   </div>
 
-  <p> <%= comment.body %> </p>
+  <div class="d-flex justify-content-between">
+    <p> <%= comment.body %> </p>
+
+    <% # If the user is logged in and the comment was made by the current user, allow actions%>
+    <% if !Current.user.nil? && comment.username == Current.user.username %>
+      <div class="d-flex justify-content-between gap-4">
+        <%= link_to image_tag("edit.png"), edit_article_comment_path(@article, comment), remote: true, id:"edit-icon"%>
+        <%= link_to image_tag("delete-icon.png"), article_comment_path(@article, comment), remote: true,  form: {data: {turbo_confirm: 'Are you sure?'}}, data: {"turbo-method": :delete}, id:"delete-icon"%>
+      </div>
+    <% end %>
+  </div>
 </div>
