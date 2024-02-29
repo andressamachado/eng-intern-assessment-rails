@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 # Article model
+#   author: string
+#   title: string (required)
+#   content: string (required)
+#   date: date (default value: Date.today)
+#   comments: Comment instances
+#   created_at: datetime
+#   updated_at: datetime
 class Article < ApplicationRecord
   has_many :comments, dependent: :destroy
 

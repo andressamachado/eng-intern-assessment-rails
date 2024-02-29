@@ -5,6 +5,8 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles or /articles.json
+  # Populate the articles with data from database.
+  # Either all articles or articles that match the search term.
   def index
     @articles = if params[:term]
       Article.search(params[:term])
@@ -14,12 +16,14 @@ class ArticlesController < ApplicationController
   end
 
   # GET /articles/1 or /articles/1.json
+  # Populate comments for the article with data from database.
   def show
     @comment = Comment.new
     @comments = @article.comments.order(created_at: :asc)
   end
 
   # GET /articles/new
+  # Create a new Article instance.
   def new
     @article = Article.new
   end
@@ -28,6 +32,7 @@ class ArticlesController < ApplicationController
   def edit; end
 
   # POST /articles or /articles.json
+  # Create a new Article instance and save it to the database.
   def create
     @article = Article.new(article_params)
 
@@ -43,7 +48,9 @@ class ArticlesController < ApplicationController
   end
 
   # PATCH/PUT /articles/1 or /articles/1.json
+  # Update an Article instance in the database.
   def update
+    # Return if no changes were made to the article instance.
     if (@article.content == params[:article][:content]) &&
         (@article.title == params[:article][:title]) &&
         (@article.author == params[:article][:author]) &&
@@ -64,6 +71,7 @@ class ArticlesController < ApplicationController
   end
 
   # DELETE /articles/1 or /articles/1.json
+  # Delete an Article instance from the database.
   def destroy
     @article.destroy!
 

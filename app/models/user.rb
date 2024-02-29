@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-# username:string
-# email:string
-# password_digest:string
-#
-# password:string virtual
-# password_confirmation:string virtual
+# User model class:
+#   username:string
+#   email:string
+#   password_digest:string
+#   password:string virtual
+#   password_confirmation:string virtual
+#   created_at:datetime
 class User < ApplicationRecord
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
 

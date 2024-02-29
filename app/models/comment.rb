@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-# Comment model
+# Comment model class:
+#   username:string
+#   body:text
+#   article:references
+#   article_id:integer
+#   created_at:datetime
+#   updated_at:datetime
 class Comment < ApplicationRecord
   belongs_to :article
 

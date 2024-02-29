@@ -2,13 +2,13 @@
 
 # Controller for the Registration resource
 class RegistrationsController < ApplicationController
+  # Create a new user instance
   def new
     @user = User.new
   end
 
+  # Create a new user with the given parameters from form
   def create
-    # params => {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"andressa.pamachado@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign Up"}
-    # params[:user] => {"email"=>"andressa.pamachado@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
     @user = User.new(user_params)
 
     if @user.save
@@ -21,6 +21,7 @@ class RegistrationsController < ApplicationController
 
   private
 
+  # Define the parameters required for a user
   def user_params
     # it requires a user object and only permits an email, a password and a password_confirmation to be set
     params.require(:user).permit(:email, :username, :password, :password_confirmation)
